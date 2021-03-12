@@ -89,13 +89,16 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
+    <AndroidResource Include="Resources\drawable\jpeghome.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WithoutBugs\WithoutBugs.csproj">
       <Project>{57198578-45F4-47E5-8294-56C40F5AEF58}</Project>
       <Name>WithoutBugs</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\EASVLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

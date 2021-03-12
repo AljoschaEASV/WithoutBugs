@@ -8,7 +8,8 @@ namespace WithoutBugs.Models
 {
     public class Tile
     {
-        const string UrlPrefix =
+       
+        private const string newPath =
             "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flokeshdhakar.com%2Fprojects%2Flightbox2%2Fimages%2Fimage-5.jpg&f=1&nofb=1";
 
         public int I { get; private set; }
@@ -22,13 +23,14 @@ namespace WithoutBugs.Models
 
            TileView = new ContentView
             {
-                Padding = new Thickness(1)
-            };
+                Padding = new Thickness(1),
+                Content = new Image
+                {
+                    Source = ImageSource.FromUri(new Uri(newPath + "Bitmap" + row + col + ".png"))
+                }
+        };
 
-           Image content = new Image
-           {
-               Source = ImageSource.FromUri(new Uri(UrlPrefix + "Bitmap" + row + col + ".png"))
-           };
+          
 
 
 
@@ -41,10 +43,10 @@ namespace WithoutBugs.Models
         /// https://github.com/muak/Xamarin.Plugin.ImageEdit TODO
         /// </summary>
         /// <returns></returns>
-        public async Task CropBitches()
-        {
-            var image = await CrossImageEdit.Current.CreateImageAsync(imageStream);
-        }
+        //public async Task CropBitches()
+        //{
+        //    var image = await CrossImageEdit.Current.CreateImageAsync(imageStream);
+        //}
 
 
         public static Dictionary<View, Tile> Dictionary { get; } = new Dictionary<View, Tile>();

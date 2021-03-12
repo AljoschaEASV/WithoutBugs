@@ -40,7 +40,13 @@ namespace WithoutBugs{
                     // Add tap recognition.
                     TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                     tapGestureRecognizer.Tapped += OnTileTapped;
+                    TapGestureRecognizer tg = new TapGestureRecognizer();
+                    tg.NumberOfTapsRequired = 2;
+                    tg.Tapped += OnDoubleTapped; 
+
+
                     tile.TileView.GestureRecognizers.Add(tapGestureRecognizer);
+                    tile.TileView.GestureRecognizers.Add(tg);
 
                     // Add the tile to the array and the AbsoluteLayout.
                     tiles[row, col] = tile;
@@ -90,6 +96,22 @@ namespace WithoutBugs{
             await ShiftIntoEmpty(tappedTile.Row, tappedTile.Col);
             isBusy = false;
         }
+        async void OnDoubleTapped(object sender, EventArgs args)
+        {
+            if (isBusy)
+                return;
+
+            isBusy = true;
+
+            View tileView = (View)sender;
+            Tile tappedTile = Tile.Dictionary[tileView];
+
+            tileView.Rotation += 90;
+
+           
+            isBusy = false;
+        }
+
 
         async Task ShiftIntoEmpty(int tappedRow, int tappedCol, uint length = 100)
         {
@@ -155,7 +177,7 @@ namespace WithoutBugs{
             isBusy = true;
 
             // Simulate some fast crazy taps.
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 50; i++)
             {
                 await ShiftIntoEmpty(rand.Next(NUM), emptyCol, 25);
                 await ShiftIntoEmpty(emptyRow, rand.Next(NUM), 25);
